@@ -125,7 +125,20 @@ end
 theorem contrapositive_law :
   (P → Q) ↔ (¬Q → ¬P)  :=
 begin
-  sorry,
+  split,
+  intro pq,
+  intro fq,
+  intro p,
+  have hpq := pq p,
+  have hfq := fq hpq,
+  
+  contradiction,
+  intro pq,
+  intro p,
+  by_contradiction fq,
+  have fpq := pq fq,
+  have ppq := fpq p,
+  contradiction,
 end
 
 
