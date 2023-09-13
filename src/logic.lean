@@ -40,7 +40,7 @@ begin
   intro pb,
   have b : false := pb p,
   contradiction,
-  
+
 end
 
 ------------------------------------------------
@@ -50,7 +50,12 @@ end
 theorem disj_comm :
   (P ∨ Q) → (Q ∨ P)  :=
 begin
-  sorry,
+  intro h,
+  cases h,
+  right,
+  exact h,
+  left,
+  exact h,
 end
 
 theorem conj_comm :
