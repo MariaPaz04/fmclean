@@ -87,7 +87,12 @@ end
 theorem disj_as_impl :
   (P ∨ Q) → (¬P → Q)  :=
 begin
-  sorry,
+  intro h,
+  intro fp,
+  cases h,
+  have hp := fp h,
+  contradiction,
+  exact h,
 end
 
 
