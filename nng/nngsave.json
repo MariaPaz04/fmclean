@@ -1,0 +1,451 @@
+{
+  "name": "Natural number game",
+  "version": "1.3.3",
+  "data": [
+    {
+      "lean": "lemma example1 (x y z : mynat) : x * y + z = x * y + z :=\n",
+      "isSolved": true,
+      "editorText": "refl,"
+    },
+    {
+      "lean": "lemma example2 (x y : mynat) (h : y = x + 7) : 2 * y = 2 * (x + 7) :=\n",
+      "isSolved": true,
+      "editorText": "rw h,\r\nrefl,\r\n"
+    },
+    {
+      "lean": "lemma example3 (a b : mynat) (h : succ a = b) : succ(succ(a)) = succ(b) :=\n",
+      "isSolved": true,
+      "editorText": "rw h,\r\nrefl,\r\n"
+    },
+    {
+      "lean": "lemma add_succ_zero (a : mynat) : a + succ(0) = succ(a) :=\n",
+      "isSolved": true,
+      "editorText": "rw add_succ,\r\nrw add_zero,\r\nrefl,\r\n"
+    },
+    {
+      "lean": "lemma zero_add (n : mynat) : 0 + n = n :=\n",
+      "isSolved": true,
+      "editorText": "induction n with d hd,\r\nrw add_zero,\r\nrefl,\r\nrw add_succ,\r\nrw hd,\r\nrefl,"
+    },
+    {
+      "lean": "lemma add_assoc (a b c : mynat) : (a + b) + c = a + (b + c) :=\n",
+      "isSolved": true,
+      "editorText": "induction c with d hd,\r\nrefl,\r\nrw add_succ,\r\nrw hd,\r\nrw add_succ,\r\nrefl,"
+    },
+    {
+      "lean": "lemma succ_add (a b : mynat) : succ a + b = succ (a + b) :=\n",
+      "isSolved": true,
+      "editorText": "induction b with d hd,\r\nrefl,\r\nrw add_succ,\r\nrw hd,\r\nrefl,"
+    },
+    {
+      "lean": "lemma add_comm (a b : mynat) : a + b = b + a :=\n",
+      "isSolved": true,
+      "editorText": "induction b with d hd,\r\nrw add_zero,\r\nrw zero_add,\r\nrefl,\r\nrw add_succ,\r\nrw succ_add,\r\nrw hd,\r\nrefl,"
+    },
+    {
+      "lean": "theorem succ_eq_add_one (n : mynat) : succ n = n + 1 :=\n",
+      "isSolved": true,
+      "editorText": "induction n with d hd,\r\nrw zero_add,\r\nrw  one_eq_succ_zero,\r\nrefl,\r\nrw succ_add,\r\nrw hd,\r\nrefl,"
+    },
+    {
+      "lean": "lemma add_right_comm (a b c : mynat) : a + b + c = a + c + b :=\n",
+      "isSolved": true,
+      "editorText": "induction c with d hd,\r\nrw add_zero,\r\nrw add_zero,\r\nrefl,\r\nrw add_succ,\r\nrw add_succ,\r\nrw succ_add,\r\nrw hd,\r\nrefl,\r\n"
+    },
+    {
+      "lean": "lemma zero_mul (m : mynat) : 0 * m = 0 :=\n",
+      "isSolved": true,
+      "editorText": "induction m with a ha,\r\nrw mul_zero,\r\nrefl,\r\nrw mul_succ,\r\nrw ha,\r\nrw add_zero,\r\nrefl,"
+    },
+    {
+      "lean": "lemma mul_one (m : mynat) : m * 1 = m :=\n",
+      "isSolved": true,
+      "editorText": "induction m with a ha,\r\nrw zero_mul,\r\nrefl,\r\nrw one_eq_succ_zero,\r\nrw  mul_succ,\r\nrw mul_zero,\r\nrw zero_add,\r\nrefl,"
+    },
+    {
+      "lean": "lemma one_mul (m : mynat) : 1 * m = m :=\n",
+      "isSolved": true,
+      "editorText": "induction m with a ha,\r\nrw mul_zero,\r\nrefl,\r\nrw mul_succ,\r\nrw ha,\r\nrw succ_eq_add_one a,\r\nrefl,\r\n"
+    },
+    {
+      "lean": "lemma mul_add (t a b : mynat) : t * (a + b) = t * a + t * b :=\n",
+      "isSolved": true,
+      "editorText": "induction b with x hx,\r\nrw add_zero,\r\nrw mul_zero,\r\nrw add_zero,\r\nrefl,\r\nrw add_succ,\r\nrw mul_succ,\r\nrw mul_succ,\r\nrw hx,\r\nrw add_assoc,\r\nrefl,"
+    },
+    {
+      "lean": "lemma mul_assoc (a b c : mynat) : (a * b) * c = a * (b * c) :=\n",
+      "isSolved": true,
+      "editorText": "induction c with x hx,\r\nrw mul_zero,\r\nrw mul_zero,\r\nrw mul_zero,\r\nrefl,\r\nrw mul_succ,\r\nrw mul_succ,\r\nrw hx,\r\nrw mul_add,\r\nrefl,\r\n"
+    },
+    {
+      "lean": "lemma succ_mul (a b : mynat) : succ a * b = a * b + b :=\n",
+      "isSolved": true,
+      "editorText": "induction b with x hx,\r\nrw mul_zero,\r\nrw mul_zero,\r\nrw add_zero,\r\nrefl,\r\nrw mul_succ,\r\nrw mul_succ,\r\nrw add_succ,\r\nrw add_succ,\r\nrw add_comm,\r\nrw hx,\r\nrw ← add_assoc,\r\nrw add_comm a,\r\nrefl,"
+    },
+    {
+      "lean": "lemma add_mul (a b t : mynat) : (a + b) * t = a * t + b * t :=\n",
+      "isSolved": true,
+      "editorText": "induction t with d hd,\r\nrw mul_zero,\r\nrw mul_zero,\r\nrw mul_zero,\r\nrw add_zero,\r\nrefl,\r\nrw mul_succ,\r\nrw hd,\r\nrw mul_succ,\r\nrw mul_succ,\r\nrw add_comm,\r\nrw ← add_assoc,\r\nrw ← add_assoc,\r\nrw add_assoc a,\r\nrw add_comm b,\r\nrw ← add_assoc,\r\nrw add_right_comm (a * d),\r\nrw ← add_right_comm,\r\nrw ← add_right_comm (a * d),\r\nrw ← add_comm a,\r\nrefl,"
+    },
+    {
+      "lean": "lemma mul_comm (a b : mynat) : a * b = b * a :=\n",
+      "isSolved": true,
+      "editorText": "induction b with x hx,\r\nrw mul_zero, \r\nrw zero_mul,\r\nrefl,\r\nrw mul_succ,\r\nrw hx,\r\nrw succ_mul,\r\nrefl,"
+    },
+    {
+      "lean": "lemma mul_left_comm (a b c : mynat) : a * (b * c) = b * (a * c) :=\n",
+      "isSolved": true,
+      "editorText": "induction c with x hx,\r\nrw mul_zero,\r\nrw mul_zero,\r\nrw mul_zero,\r\nrefl,\r\nrw mul_succ,\r\nrw mul_succ,\r\nrw mul_add,\r\nrw hx,\r\nrw mul_add,\r\nrw mul_comm,\r\nrw add_comm,\r\nrw mul_comm,\r\nrw add_comm,\r\nrefl,\r\n"
+    },
+    {
+      "lean": "lemma zero_pow_zero : (0 : mynat) ^ (0 : mynat) = 1 :=\n",
+      "isSolved": true,
+      "editorText": "rw pow_zero,\r\nrefl,"
+    },
+    {
+      "lean": "lemma zero_pow_succ (m : mynat) : (0 : mynat) ^ (succ m) = 0 :=\n",
+      "isSolved": true,
+      "editorText": "rw pow_succ,\r\nrw mul_zero,\r\nrefl,"
+    },
+    {
+      "lean": "lemma pow_one (a : mynat) : a ^ (1 : mynat) = a :=\n",
+      "isSolved": true,
+      "editorText": "rw one_eq_succ_zero,\r\nrw pow_succ,\r\nrw pow_zero,\r\nrw one_mul,\r\nrefl,"
+    },
+    {
+      "lean": "lemma one_pow (m : mynat) : (1 : mynat) ^ m = 1 :=\n",
+      "isSolved": true,
+      "editorText": "induction m with x hx,\r\nrw pow_zero,\r\nrefl,\r\nrw pow_succ,\r\nrw hx,\r\nrw mul_one,\r\nrefl,"
+    },
+    {
+      "lean": "lemma pow_add (a m n : mynat) : a ^ (m + n) = a ^ m * a ^ n :=\n",
+      "isSolved": true,
+      "editorText": "induction n with x hx,\r\nrw add_zero,\r\nrw pow_zero,\r\nrw mul_one,\r\nrefl,\r\nrw add_succ,\r\nrw pow_succ,\r\nrw pow_succ,\r\nrw mul_comm,\r\nrw mul_comm (a ^ m),\r\nrw mul_comm (a ^ x),\r\nrw mul_assoc,\r\nrw hx,\r\nrw mul_comm (a ^ m),\r\nrefl,\r\n"
+    },
+    {
+      "lean": "lemma mul_pow (a b n : mynat) : (a * b) ^ n = a ^ n * b ^ n :=\n",
+      "isSolved": true,
+      "editorText": "induction n with x hx,\r\nrw pow_zero,\r\nrw pow_zero,\r\nrw pow_zero,\r\nrw mul_one,\r\nrefl,\r\nrw pow_succ,\r\nrw hx,\r\nrw pow_succ,\r\nrw pow_succ,\r\nrw ← mul_assoc,\r\nrw ← mul_comm a,\r\nrw ← mul_comm a,\r\nrw ← mul_assoc,\r\nrw ← mul_assoc,\r\nrefl,\r\n\r\n"
+    },
+    {
+      "lean": "lemma pow_pow (a m n : mynat) : (a ^ m) ^ n = a ^ (m * n) :=\n",
+      "isSolved": true,
+      "editorText": "induction m with x hx,\r\nrw pow_zero,\r\nrw zero_mul,\r\nrw pow_zero,\r\nrw one_pow,\r\nrefl,\r\nrw pow_succ,\r\nrw mul_pow,\r\nrw succ_mul,\r\nrw pow_add,\r\nrw hx,\r\nrefl,"
+    },
+    {
+      "lean": "lemma add_squared (a b : mynat) :\n  (a + b) ^ (2 : mynat) = a ^ (2 : mynat) + b ^ (2 : mynat) + 2 * a * b :=\n",
+      "isSolved": true,
+      "editorText": "rw two_eq_succ_one,\r\nrw one_eq_succ_zero,\r\nrepeat {rw pow_succ},\r\nrepeat {rw pow_zero},\r\nrepeat {rw one_mul},\r\nrepeat {rw mul_add, rw add_mul},\r\nrepeat {rw succ_mul},\r\nrepeat {rw zero_mul},\r\nrw zero_add,\r\nrepeat {rw add_mul},\r\nrw [add_comm (a * b) (b * b)],\r\nrw [mul_comm b a],\r\nrw [add_right_comm],\r\nrw [add_assoc],\r\nrw [add_assoc],\r\nrw [add_assoc],\r\nrefl,\r\n"
+    },
+    {
+      "lean": "example (P Q : Type) (p : P) (h : P → Q) : Q :=\n",
+      "isSolved": true,
+      "editorText": "exact h(p),\r\n"
+    },
+    {
+      "lean": "example : mynat → mynat :=\n",
+      "isSolved": true,
+      "editorText": "intro n,\r\nexact 3*n+2,"
+    },
+    {
+      "lean": "example (P Q R S T U: Type)\n(p : P)\n(h : P → Q)\n(i : Q → R)\n(j : Q → T)\n(k : S → T)\n(l : T → U)\n: U :=\n",
+      "isSolved": true,
+      "editorText": "have q := h(p),\r\nhave t : T := j(q),\r\nhave u : U := l(t),\r\nexact u,"
+    },
+    {
+      "lean": "example (P Q R S T U: Type)\n(p : P)\n(h : P → Q)\n(i : Q → R)\n(j : Q → T)\n(k : S → T)\n(l : T → U)\n: U :=\n",
+      "isSolved": true,
+      "editorText": "have q := h(p),\r\nhave t : T := j(q),\r\nhave u : U := l(t),\r\nexact u,"
+    },
+    {
+      "lean": "example (P Q : Type) : P → (Q → P) :=\n",
+      "isSolved": true,
+      "editorText": "intro p,\r\nintro q,\r\nexact p,"
+    },
+    {
+      "lean": "example (P Q R : Type) : (P → (Q → R)) → ((P → Q) → (P → R)) :=\n",
+      "isSolved": true,
+      "editorText": "intros f h p,\r\nhave x := f p,\r\nexact x(h(p)),"
+    },
+    {
+      "lean": "example (P Q F : Type) : (P → Q) → ((Q → F) → (P → F)) :=\n",
+      "isSolved": true,
+      "editorText": "intros a b p,\r\nexact b(a(p)),"
+    },
+    {
+      "lean": "example (P Q : Type) : (P → Q) → ((Q → empty) → (P → empty)) :=\n",
+      "isSolved": true,
+      "editorText": "intros f h p,\r\napply h,\r\napply f,\r\napply p,"
+    },
+    {
+      "lean": "example (A B C D E F G H I J K L : Type)\n(f1 : A → B) (f2 : B → E) (f3 : E → D) (f4 : D → A) (f5 : E → F)\n(f6 : F → C) (f7 : B → C) (f8 : F → G) (f9 : G → J) (f10 : I → J)\n(f11 : J → I) (f12 : I → H) (f13 : E → H) (f14 : H → K) (f15 : I → L)\n : A → L :=\n",
+      "isSolved": true,
+      "editorText": "intro x,\r\napply f15,\r\napply f11,\r\napply f9,\r\napply f8,\r\napply f5,\r\napply f2,\r\napply f1,\r\nexact x,"
+    },
+    {
+      "lean": "example (P Q : Prop) (p : P) (h : P → Q) : Q :=\n",
+      "isSolved": true,
+      "editorText": "exact h(p),"
+    },
+    {
+      "lean": "lemma imp_self (P : Prop) : P → P :=\n",
+      "isSolved": true,
+      "editorText": "intro p,\r\nexact p,\r\n"
+    },
+    {
+      "lean": "lemma maze (P Q R S T U: Prop)\n(p : P)\n(h : P → Q)\n(i : Q → R)\n(j : Q → T)\n(k : S → T)\n(l : T → U)\n: U :=\n",
+      "isSolved": true,
+      "editorText": "have q := h(p),\r\nhave t : T := j(q),\r\nhave u : U := l(t),\r\nexact u,"
+    },
+    {
+      "lean": "lemma maze (P Q R S T U: Prop)\n(p : P)\n(h : P → Q)\n(i : Q → R)\n(j : Q → T)\n(k : S → T)\n(l : T → U)\n: U :=\n",
+      "isSolved": true,
+      "editorText": "have q := h(p),\r\nhave t : T := j(q),\r\nhave u : U := l(t),\r\nexact u,"
+    },
+    {
+      "lean": "example (P Q : Prop) : P → (Q → P) :=\n",
+      "isSolved": true,
+      "editorText": "intro p,\r\nintro q,\r\nexact p,"
+    },
+    {
+      "lean": "example (P Q R : Prop) : (P → (Q → R)) → ((P → Q) → (P → R)) :=\n",
+      "isSolved": true,
+      "editorText": "intros f h p,\r\napply f(p),\r\napply h,\r\nexact p,"
+    },
+    {
+      "lean": "lemma imp_trans (P Q R : Prop) : (P → Q) → ((Q → R) → (P → R)) :=\n",
+      "isSolved": true,
+      "editorText": "intro hpq,\r\nintro hqr,\r\nintro p,\r\napply hqr,\r\napply hpq,\r\nexact p,"
+    },
+    {
+      "lean": "lemma contrapositive (P Q : Prop) : (P → Q) → (¬ Q → ¬ P) :=\n",
+      "isSolved": true,
+      "editorText": "rw not_iff_imp_false,\r\nrw not_iff_imp_false,\r\nintro pq,\r\nintro qf,\r\nintro p,\r\napply qf,\r\napply pq,\r\nexact p,"
+    },
+    {
+      "lean": "example (A B C D E F G H I J K L : Prop)\n(f1 : A → B) (f2 : B → E) (f3 : E → D) (f4 : D → A) (f5 : E → F)\n(f6 : F → C) (f7 : B → C) (f8 : F → G) (f9 : G → J) (f10 : I → J)\n(f11 : J → I) (f12 : I → H) (f13 : E → H) (f14 : H → K) (f15 : I → L)\n : A → L :=\n",
+      "isSolved": true,
+      "editorText": "intro x,\r\napply f15,\r\napply f11,\r\napply f9,\r\napply f8,\r\napply f5,\r\napply f2,\r\napply f1,\r\nexact x,"
+    },
+    {
+      "lean": "example (P Q : Prop) (p : P) (q : Q) : P ∧ Q :=\n",
+      "isSolved": true,
+      "editorText": "split,\r\napply p,\r\napply q,"
+    },
+    {
+      "lean": "lemma and_symm (P Q : Prop) : P ∧ Q → Q ∧ P :=\n",
+      "isSolved": true,
+      "editorText": "intro pq,\r\ncases pq with p q,\r\nsplit,\r\napply q,\r\napply p,"
+    },
+    {
+      "lean": "lemma and_trans (P Q R : Prop) : P ∧ Q → Q ∧ R → P ∧ R :=\n",
+      "isSolved": true,
+      "editorText": "intro pq,\r\nintro qr,\r\ncases pq with p q,\r\ncases qr with q r,\r\nsplit,\r\nexact p,\r\nexact r,"
+    },
+    {
+      "lean": "lemma iff_trans (P Q R : Prop) : (P ↔ Q) → (Q ↔ R) → (P ↔ R) :=\n",
+      "isSolved": true,
+      "editorText": "intro pq,\r\ncases pq with a b,\r\nintro qr,\r\ncases qr with c d,\r\nsplit,\r\nintro p,\r\napply c,\r\napply a,\r\nexact p,\r\nintro r,\r\napply b,\r\napply d,\r\nexact r,"
+    },
+    {
+      "lean": "lemma iff_trans (P Q R : Prop) : (P ↔ Q) → (Q ↔ R) → (P ↔ R) :=\n",
+      "isSolved": true,
+      "editorText": "intro pq,\r\ncases pq with a b,\r\nintro qr,\r\ncases qr with c d,\r\nsplit,\r\nintro p,\r\napply c,\r\napply a,\r\nexact p,\r\nintro r,\r\napply b,\r\napply d,\r\nexact r,"
+    },
+    {
+      "lean": "example (P Q : Prop) : Q → (P ∨ Q) :=\n",
+      "isSolved": true,
+      "editorText": "intro q,\r\nright,\r\nexact q,"
+    },
+    {
+      "lean": "lemma or_symm (P Q : Prop) : P ∨ Q → Q ∨ P :=\n",
+      "isSolved": true,
+      "editorText": "intro pq,\r\ncases pq with p q,\r\nright,\r\nexact p,\r\nleft,\r\nexact q,"
+    },
+    {
+      "lean": "lemma and_or_distrib_left (P Q R : Prop) : P ∧ (Q ∨ R) ↔ (P ∧ Q) ∨ (P ∧ R) :=\n",
+      "isSolved": true,
+      "editorText": "split,\r\nintro h,\r\ncases h with p hqr,\r\ncases hqr with q r,\r\nleft,\r\nsplit,\r\nexact p,\r\nexact q,\r\nright,\r\nsplit,\r\nexact p,\r\nexact r,\r\nintro h,\r\ncases h with a b,\r\ncases a with p q,\r\nsplit,\r\nexact p,\r\nleft,\r\nexact q,\r\ncases b with p r,\r\nsplit,\r\nexact p,\r\nright,\r\nexact r,\r\n"
+    },
+    {
+      "lean": "lemma contra (P Q : Prop) : (P ∧ ¬ P) → Q :=\n",
+      "isSolved": true,
+      "editorText": "intro h,\r\ncases h with p pf,\r\nrw not_iff_imp_false at pf,\r\nexfalso, \r\napply pf,\r\nexact p,\r\n"
+    },
+    {
+      "lean": "lemma contrapositive2 (P Q : Prop) : (¬ Q → ¬ P) → (P → Q) :=\n",
+      "isSolved": true,
+      "editorText": "intro h,\r\nintro p,\r\nrepeat {rw not_iff_imp_false at h},\r\nby_cases p : P; by_cases q : Q,\r\nrepeat {cc},"
+    },
+    {
+      "lean": "theorem succ_inj' {a b : mynat} (hs : succ(a) = succ(b)) :  a = b := \n",
+      "isSolved": true,
+      "editorText": "exact succ_inj(hs),"
+    },
+    {
+      "lean": "theorem succ_succ_inj {a b : mynat} (h : succ(succ(a)) = succ(succ(b))) :  a = b := \n",
+      "isSolved": true,
+      "editorText": "apply succ_inj,\r\napply succ_inj,\r\nexact h,\r\n"
+    },
+    {
+      "lean": "theorem succ_eq_succ_of_eq {a b : mynat} : a = b → succ(a) = succ(b) :=\n",
+      "isSolved": true,
+      "editorText": "intro h,\r\nrw h,\r\nrefl,\r\n"
+    },
+    {
+      "lean": "theorem succ_eq_succ_iff (a b : mynat) : succ a = succ b ↔ a = b :=\n",
+      "isSolved": true,
+      "editorText": "split,\r\nexact succ_inj,\r\nexact succ_eq_succ_of_eq,"
+    },
+    {
+      "lean": "theorem add_right_cancel (a t b : mynat) : a + t = b + t → a = b :=\n",
+      "isSolved": true,
+      "editorText": "intro h,\r\ninduction t with x hx,\r\nrw add_zero at h,\r\nrw add_zero at h,\r\nrw h,\r\nrefl,\r\nrw hx,\r\nrefl,\r\nrepeat {rw add_succ at h},\r\napply succ_inj,\r\nexact h,"
+    },
+    {
+      "lean": "theorem add_left_cancel (t a b : mynat) : t + a = t + b → a = b :=\n",
+      "isSolved": true,
+      "editorText": "repeat {rw add_comm t},\r\nexact add_right_cancel a t b,"
+    },
+    {
+      "lean": "theorem add_right_cancel_iff (t a b : mynat) :  a + t = b + t ↔ a = b :=\n",
+      "isSolved": true,
+      "editorText": "split,\r\nexact add_right_cancel a t b,\r\nintro h,\r\nrw h,\r\nrefl,"
+    },
+    {
+      "lean": "lemma eq_zero_of_add_right_eq_self {a b : mynat} : a + b = a → b = 0 :=\n",
+      "isSolved": true,
+      "editorText": "intro h,\r\ninduction a with x hx,\r\nrw zero_add at h,\r\napply h,\r\nrw succ_add at h,\r\napply hx,\r\napply succ_inj,\r\napply h,"
+    },
+    {
+      "lean": "theorem succ_ne_zero (a : mynat) : succ a ≠ 0 := \n",
+      "isSolved": true,
+      "editorText": "symmetry,\r\nexact zero_ne_succ a,"
+    },
+    {
+      "lean": "lemma add_left_eq_zero {{a b : mynat}} (H : a + b = 0) : b = 0 :=\n",
+      "isSolved": true,
+      "editorText": "cases b with d,\r\nrefl,\r\nrw add_succ at H,\r\nexfalso,\r\nhave H1 := succ_ne_zero (a + d),\r\nhave H2 := H1(H),\r\napply H2,"
+    },
+    {
+      "lean": "lemma add_right_eq_zero {a b : mynat} : a + b = 0 → a = 0 :=\n",
+      "isSolved": true,
+      "editorText": "rw add_comm,\r\napply add_left_eq_zero,"
+    },
+    {
+      "lean": "theorem add_one_eq_succ (d : mynat) : d + 1 = succ d :=\n",
+      "isSolved": true,
+      "editorText": "symmetry,\r\nexact succ_eq_add_one d,"
+    },
+    {
+      "lean": "lemma ne_succ_self (n : mynat) : n ≠ succ n :=\n",
+      "isSolved": true,
+      "editorText": "cases n with k,\r\napply zero_ne_succ,\r\nintro h,\r\nhave h1 := succ_inj(h),\r\nsymmetry at h1,\r\nrw succ_eq_add_one at h1,\r\nhave h2 := eq_zero_of_add_right_eq_self(h1),\r\nrw one_eq_succ_zero at h2,\r\nsymmetry at h2,\r\nhave h3 := zero_ne_succ 0,\r\nexact h3(h2),"
+    },
+    {
+      "lean": "theorem mul_pos (a b : mynat) : a ≠ 0 → b ≠ 0 → a * b ≠ 0 :=\n",
+      "isSolved": true,
+      "editorText": "intros f g h,\r\ncases b with n,\r\nrw mul_zero at h,\r\nexact g(h),\r\nrw mul_succ at h,\r\nhave H1 := add_left_eq_zero(h),\r\nexact f(H1),"
+    },
+    {
+      "lean": "theorem eq_zero_or_eq_zero_of_mul_eq_zero (a b : mynat) (h : a * b = 0) :\n  a = 0 ∨ b = 0 :=\n",
+      "isSolved": true,
+      "editorText": "cases b,\r\nright,\r\nrefl,\r\nrw mul_succ at h,\r\nhave H1 := add_left_eq_zero(h),\r\nleft,\r\nexact H1,"
+    },
+    {
+      "lean": "theorem mul_eq_zero_iff (a b : mynat): a * b = 0 ↔ a = 0 ∨ b = 0 :=\n",
+      "isSolved": true,
+      "editorText": "split,\r\nintro h,\r\napply eq_zero_or_eq_zero_of_mul_eq_zero,\r\napply h,\r\nintro h,\r\ncases h,\r\nrw h,\r\nrw zero_mul,\r\nrefl,\r\nrw h,\r\nrw mul_zero,\r\nrefl,"
+    },
+    {
+      "lean": "theorem mul_left_cancel (a b c : mynat) (ha : a ≠ 0) : a * b = a * c → b = c :=\n",
+      "isSolved": true,
+      "editorText": "induction c with d hd generalizing b,\r\nintro h,\r\nrw mul_zero at h,\r\nrw mul_eq_zero_iff at h,\r\ncases h with b,\r\nexfalso,\r\nexact ha(b),\r\nexact h,\r\nintro h,\r\ncases b,\r\nrw mul_zero at h,\r\nsymmetry at h,\r\nrw mul_eq_zero_iff at h,\r\ncases h with b,\r\nexfalso,\r\nexact ha(b),\r\nsymmetry,\r\nexact h,\r\napply succ_eq_succ_of_eq,\r\nrw mul_succ at h,\r\nrepeat {rw mul_succ at h},\r\nrw add_right_cancel_iff at h,\r\nhave H1 := hd(b),\r\napply H1,\r\nexact h,\r\n"
+    },
+    {
+      "lean": "lemma one_add_le_self (x : mynat) : x ≤ 1 + x :=\n",
+      "isSolved": true,
+      "editorText": "rw le_iff_exists_add,\r\nuse 1,\r\nexact add_comm 1 x,"
+    },
+    {
+      "lean": "lemma le_refl (x : mynat) : x ≤ x :=\n",
+      "isSolved": true,
+      "editorText": "rw le_iff_exists_add,\r\nuse 0,\r\nrw add_zero,\r\nrefl,\r\n"
+    },
+    {
+      "lean": "theorem le_succ (a b : mynat) : a ≤ b → a ≤ (succ b) :=\n",
+      "isSolved": true,
+      "editorText": "intro h,\r\nrw le_iff_exists_add at h ⊢,\r\ncases h with c hc,\r\nuse c+1,\r\nrw hc,\r\nrw succ_eq_add_one,\r\nrw add_assoc,\r\nrefl,"
+    },
+    {
+      "lean": "lemma zero_le (a : mynat) : 0 ≤ a :=\n",
+      "isSolved": true,
+      "editorText": "cases a with x hx,\r\nrefl,\r\nuse x+1,\r\nrw succ_eq_add_one,\r\nrw zero_add,\r\nrefl,"
+    },
+    {
+      "lean": "theorem le_trans (a b c : mynat) (hab : a ≤ b) (hbc : b ≤ c) : a ≤ c :=\n",
+      "isSolved": true,
+      "editorText": "cases hab with x y,\r\ncases hbc with z w,\r\nrw w,\r\nrw y,\r\nuse x+z,\r\nrw add_assoc,\r\nrefl,"
+    },
+    {
+      "lean": "theorem le_antisymm (a b : mynat) (hab : a ≤ b) (hba : b ≤ a) : a = b :=\n",
+      "isSolved": true,
+      "editorText": "cases hab with x H1,\r\ncases hba with z H2,\r\nrw H2 at H1,\r\nrw add_assoc at H1,\r\nsymmetry at H1,\r\nhave H3 := eq_zero_of_add_right_eq_self H1,\r\nhave H4 := add_right_eq_zero H3,\r\nrw H4 at H2,\r\nrw add_zero at H2,\r\nexact H2,\r\n\r\n\r\n"
+    },
+    {
+      "lean": "lemma le_zero (a : mynat) (h : a ≤ 0) : a = 0 :=\n",
+      "isSolved": true,
+      "editorText": "cases h with x h1,\r\nsymmetry at h1,\r\nhave h2 := add_right_eq_zero h1,\r\nexact h2,"
+    },
+    {
+      "lean": "lemma succ_le_succ (a b : mynat) (h : a ≤ b) : succ a ≤ succ b :=\n",
+      "isSolved": true,
+      "editorText": "cases h with c hc,\r\nrw hc,\r\nuse c,\r\nrw succ_add,\r\nrefl,"
+    },
+    {
+      "lean": "theorem le_total (a b : mynat) : a ≤ b ∨ b ≤ a :=\n",
+      "isSolved": true,
+      "editorText": "revert a,\r\ninduction b with n hn,\r\nintro a,\r\nright,\r\nexact zero_le a,\r\nintro a,\r\ncases a with m hm,\r\nleft,\r\nexact zero_le (succ n),\r\ncases hn m,\r\nleft,\r\napply succ_le_succ,\r\nexact h,\r\nright,\r\napply succ_le_succ,\r\nexact h,\r\n"
+    },
+    {
+      "lean": "lemma le_succ_self (a : mynat) : a ≤ succ a :=\n",
+      "isSolved": true,
+      "editorText": "apply le_succ,\r\nexact le_refl a,\r\n"
+    },
+    {
+      "lean": "theorem add_le_add_right {a b : mynat} : a ≤ b → ∀ t, (a + t) ≤ (b + t) :=\n",
+      "isSolved": true,
+      "editorText": "intro t,\r\ncases t with n hn,\r\nintro t,\r\nrw hn,\r\nuse n, \r\nrw add_right_comm,\r\nrefl, "
+    },
+    {
+      "lean": "theorem le_of_succ_le_succ (a b : mynat) : succ a ≤ succ b → a ≤ b :=\n",
+      "isSolved": true,
+      "editorText": "intro h,\r\ncases h with n H1,\r\nrw succ_add at H1,\r\nhave H2 := succ_inj H1,\r\nrw H2,\r\nuse n,\r\nrefl,"
+    },
+    {
+      "lean": "theorem not_succ_le_self (a : mynat) : ¬ (succ a ≤ a) :=\n",
+      "isSolved": true,
+      "editorText": "intro h,\r\ncases h with n H1,\r\nrw succ_eq_add_one at H1,\r\nrw add_assoc at H1,\r\nsymmetry at H1,\r\nhave H2 := eq_zero_of_add_right_eq_self H1,\r\nrw add_comm at H2,\r\nrw ← succ_eq_add_one at H2,\r\nsymmetry at H2,\r\nhave H3 := zero_ne_succ n,\r\nexact H3(H2),"
+    },
+    {
+      "lean": "theorem add_le_add_left {a b : mynat} (h : a ≤ b) (t : mynat) :\n  t + a ≤ t + b :=\n",
+      "isSolved": true,
+      "editorText": "cases h with n hn,\r\nrw hn,\r\nuse n,\r\nrw add_assoc,\r\nrefl,"
+    },
+    {
+      "lean": "lemma lt_aux_one (a b : mynat) : a ≤ b ∧ ¬ (b ≤ a) → succ a ≤ b :=\n",
+      "isSolved": true,
+      "editorText": "intro h,\r\ncases h with H1 H2,\r\ncases H1 with n H3,\r\ncases n with m H4,\r\nexfalso,\r\nrw add_zero at H3,\r\napply H2,\r\nuse 0,\r\nrw add_zero b,\r\nsymmetry,\r\nexact H3,\r\nuse m,\r\nrw succ_add,\r\nrw H3,\r\nrw add_succ,\r\nrefl,\r\n"
+    },
+    {
+      "lean": "lemma lt_aux_two (a b : mynat) : succ a ≤ b → a ≤ b ∧ ¬ (b ≤ a) :=\n",
+      "isSolved": true,
+      "editorText": "intro h,\r\nsplit,\r\nrw succ_eq_add_one at h,\r\ncases h with n h,\r\nrw h,\r\nuse 1+n,\r\nrw add_assoc,\r\nrefl,\r\nintro h1,\r\ncases h with n h,\r\nrw h at h1,\r\ncases h1 with m h1,\r\nrw succ_eq_add_one at h1,\r\nrw add_assoc at h1,\r\nrw add_assoc at h1,\r\nsymmetry at h1,\r\nhave h2 := eq_zero_of_add_right_eq_self (h1),\r\nrw ← add_assoc at h2,\r\nsymmetry at h2,\r\nrw add_comm at h2,\r\nrw add_comm 1 at h2,\r\nrw ← add_assoc at h2,\r\nrw ← succ_eq_add_one at h2,\r\nhave h3 := zero_ne_succ (m+n),\r\nexact h3(h2),\r\n"
+    },
+    {
+      "lean": "lemma lt_iff_succ_le (a b : mynat) : a < b ↔ succ a ≤ b :=\n",
+      "isSolved": true,
+      "editorText": "split,\r\napply lt_aux_one a b,\r\napply lt_aux_two a b,"
+    }
+  ]
+}
