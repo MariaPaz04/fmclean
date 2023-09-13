@@ -131,7 +131,7 @@ begin
   intro p,
   have hpq := pq p,
   have hfq := fq hpq,
-  
+
   contradiction,
   intro pq,
   intro p,
@@ -149,7 +149,13 @@ end
 theorem lem_irrefutable :
   ¬¬(P∨¬P)  :=
 begin
-  sorry,
+  intro h,
+  apply h,
+  by_cases p: P,
+  left,
+  exact p,
+  right,
+  exact p,
 end
 
 
