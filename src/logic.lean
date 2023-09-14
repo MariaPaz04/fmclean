@@ -184,7 +184,15 @@ end
 theorem disj_as_negconj :
   P∨Q → ¬(¬P∧¬Q)  :=
 begin
-  sorry,
+  intro h1,
+  intro h2,
+  cases h1,
+  cases h2,
+  have h3 := h2_left h1,
+  exact h3,
+  cases h2,
+  have h3 := h2_right h1,
+  exact h3,
 end
 
 theorem conj_as_negdisj :
