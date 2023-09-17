@@ -522,13 +522,27 @@ end
 theorem demorgan_exists_converse :
   (∀x, ¬P x) → ¬(∃x, P x)  :=
 begin
-  sorry,
+  intro h,
+  intro j,
+  cases j with u hu,
+  have h1 := h u,
+  contradiction,
 end
 
 theorem demorgan_forall :
   ¬(∀x, P x) → (∃x, ¬P x)  :=
 begin
-  sorry,
+  intro h,
+  by_contradiction fe,
+  by_cases h1 : (∃x, ¬P x),
+  have f1 := fe h1,
+  exact f1,
+  apply h,
+  intro u,
+  by_contradiction h2,
+  apply h1,
+  existsi u,
+  exact h2,
 end
 
 theorem demorgan_forall_converse :
