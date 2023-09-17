@@ -548,7 +548,11 @@ end
 theorem demorgan_forall_converse :
   (∃x, ¬P x) → ¬(∀x, P x)  :=
 begin
-  sorry,
+  intro e,
+  intro a,
+  cases e with u hu,
+  apply hu,
+  apply a u,
 end
 
 theorem demorgan_forall_law :
