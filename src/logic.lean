@@ -580,7 +580,18 @@ end
 theorem demorgan_exists_law :
   ¬(∃x, P x) ↔ (∀x, ¬P x)  :=
 begin
-  sorry,
+  split,
+  intro h,
+  intro u,
+  intro p,
+  apply h,
+  existsi u,
+  exact p,
+  intro h,
+  intro j,
+  cases j with u hu,
+  have h1 := h u,
+  contradiction,
 end
 
 
