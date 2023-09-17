@@ -260,7 +260,14 @@ end
 theorem demorgan_conj_converse :
   (¬Q ∨ ¬P) → ¬(P∧Q)  :=
 begin
-  sorry,
+  intro h,
+  intro h1,
+  cases h1,
+  cases h,
+  have f := h h1_right,
+  exact f,
+  have f := h h1_left,
+  exact f,
 end
 
 theorem demorgan_conj_law :
