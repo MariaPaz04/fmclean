@@ -11,36 +11,28 @@ variables P Q R : Prop
 theorem doubleneg_intro :
   P → ¬¬P  :=
 begin
-  intro p,
-  intro pb,
-  have b : false := pb p,
-  contradiction,
+  intro h,
+  intro hp,
+  have f : false := hp h,
+  exact f,
   
 end
 
 theorem doubleneg_elim :
   ¬¬P → P  :=
 begin
-  intro hp,
-  by_contradiction hn,
-  have hnp : ¬P := hn,
-  contradiction,
-
+  intro h,
+  by_contradiction hp,
+  have f : false := h hp,
+  exact f,
 end
 
 theorem doubleneg_law :
   ¬¬P ↔ P  :=
 begin
   split,
-  intro hp,
-  by_contradiction hn,
-  have hnp : ¬P := hn,
-  contradiction,
-  intro p,
-  intro pb,
-  have b : false := pb p,
-  contradiction,
-
+  exact doubleneg_elim P,
+  exact doubleneg_intro P,
 end
 
 ------------------------------------------------
@@ -104,10 +96,10 @@ theorem impl_as_contrapositive :
   (P → Q) → (¬Q → ¬P)  :=
 begin
   intro pq,
-  intro fq,
+  intro notq,
   intro p,
   have hpq := pq p,
-  have hfq := fq hpq,
+  have hnotq := notq hpq,
   contradiction,
 end
 
@@ -126,19 +118,8 @@ theorem contrapositive_law :
   (P → Q) ↔ (¬Q → ¬P)  :=
 begin
   split,
-  intro pq,
-  intro fq,
-  intro p,
-  have hpq := pq p,
-  have hfq := fq hpq,
-
-  contradiction,
-  intro pq,
-  intro p,
-  by_contradiction fq,
-  have fpq := pq fq,
-  have ppq := fpq p,
-  contradiction,
+  exact impl_as_contrapositive P Q,
+  exact impl_as_contrapositive_converse P Q,
 end
 
 
@@ -274,48 +255,16 @@ theorem demorgan_conj_law :
   ¬(P∧Q) ↔ (¬Q ∨ ¬P)  :=
 begin
   split,
-  intro h,
-  by_cases hq: Q,
-  right,
-  intro hp,
-  apply h,
-  split,
-  exact hp,
-  exact hq,
-  left,
-  exact hq,
-  intro h,
-  intro h1,
-  cases h1,
-  cases h,
-  have f := h h1_right,
-  exact f,
-  have f := h h1_left,
-  exact f,
+  exact demorgan_conj P Q,
+  exact demorgan_conj_converse P Q,
 end
 
 theorem demorgan_disj_law :
   ¬(P∨Q) ↔ (¬P ∧ ¬Q)  :=
 begin
   split,
-  intro h,
-  split,
-  intro hp,
-  apply h,
-  left,
-  exact hp,
-  intro hq,
-  apply h,
-  right,
-  exact hq,
-  intro h1,
-  cases h1,
-  intro h2,
-  cases h2,
-  have h3 := h1_left h2,
-  exact h3,
-  have h3 := h1_right h2,
-  exact h3,
+  exact demorgan_disj P Q,
+  exact demorgan_disj_converse P Q,
 end
 
 ------------------------------------------------
@@ -559,39 +508,16 @@ theorem demorgan_forall_law :
   ¬(∀x, P x) ↔ (∃x, ¬P x)  :=
 begin
   split,
-  intro h,
-  by_contradiction fe,
-  by_cases h1 : (∃x, ¬P x),
-  have f1 := fe h1,
-  exact f1,
-  apply h,
-  intro u,
-  by_contradiction h2,
-  apply h1,
-  existsi u,
-  exact h2,
-  intro e,
-  intro a,
-  cases e with u hu,
-  apply hu,
-  apply a u,
+  exact demorgan_forall U P,
+  exact demorgan_forall_converse U P,
 end
 
 theorem demorgan_exists_law :
   ¬(∃x, P x) ↔ (∀x, ¬P x)  :=
 begin
   split,
-  intro h,
-  intro u,
-  intro p,
-  apply h,
-  existsi u,
-  exact p,
-  intro h,
-  intro j,
-  cases j with u hu,
-  have h1 := h u,
-  contradiction,
+  exact demorgan_exists U P,
+  exact demorgan_exists_converse U P, 
 end
 
 
@@ -653,42 +579,16 @@ theorem forall_as_neg_exists_law :
   (∀x, P x) ↔ ¬(∃x, ¬P x)  :=
 begin
   split,
-  intro a,
-  intro e,
-  cases e with u hu,
-  apply hu,
-  apply a u,
-  intro e,
-  intro u,
-  by_contradiction h,
-  apply e,
-  existsi u,
-  exact h,
+  exact forall_as_neg_exists U P,
+  exact forall_as_neg_exists_converse U P,
 end
 
 theorem exists_as_neg_forall_law :
   (∃x, P x) ↔ ¬(∀x, ¬P x)  :=
 begin
   split,
-  intro e,
-  intro a,
-  cases e with u hu,
-  apply a u,
-  exact hu,
-  intro a,
-  by_contradiction h,
-  have h2 : ∀x, ¬P x,
-  intro u,
-  intro p,
-  apply h,
-  existsi u,
-  exact p,
-  apply a,
-  intro u,
-  intro p,
-  apply h,
-  existsi u,
-  exact p,
+  exact exists_as_neg_forall U P,
+  exact exists_as_neg_forall_converse U P,
 end
 
 
